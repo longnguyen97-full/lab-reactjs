@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import TodoForm from "./Components/TodoForm";
 import TodoItem from "./Components/TodoItem";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -21,6 +23,13 @@ function App() {
     );
   };
 
+  // Update a to-do item
+  const updateTodo = (id, newText) => {
+    setTodos(
+      todos.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo))
+    );
+  };
+
   // Delete a to-do item
   const deleteTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
@@ -36,6 +45,7 @@ function App() {
             key={todo.id}
             todo={todo}
             toggleComplete={toggleComplete}
+            updateTodo={updateTodo}
             deleteTodo={deleteTodo}
           />
         ))}
